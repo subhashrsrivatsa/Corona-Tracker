@@ -12,6 +12,8 @@ public class LocationStats {
 	private String state;
 	private String country;
 	private int latestTotalCases;
+	private int diffFromPreviousDay;
+	
 	
 	/**
 	 * @return the state
@@ -48,6 +50,18 @@ public class LocationStats {
 	 */
 	public void setLatestTotalCases(int latestTotalCases) {
 		this.latestTotalCases = latestTotalCases;
+	}
+	/**
+	 * @return the diffFromPreviousDay
+	 */
+	public int getDiffFromPreviousDay() {
+		return diffFromPreviousDay;
+	}
+	/**
+	 * @param diffFromPreviousDay the diffFromPreviousDay to set
+	 */
+	public void setDiffFromPreviousDay(int diffFromPreviousDay) {
+		this.diffFromPreviousDay = diffFromPreviousDay;
 	}
 	
 	
