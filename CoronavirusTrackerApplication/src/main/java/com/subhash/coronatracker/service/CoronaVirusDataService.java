@@ -29,11 +29,17 @@ import com.subhash.coronatracker.model.LocationStats;
  */
 
 @Service
-public class CoronavirusDataService {
+public class CoronaVirusDataService {
 
 	private static String VIRUS_DATA_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
 
-	private List<LocationStats> allStats = new ArrayList<>();		// created LocationStats model as an ArrayList
+	// created LocationStats model as an ArrayList
+	private List<LocationStats> allStats = new ArrayList<>();
+
+	public List<LocationStats> getAllStats(){
+		return allStats;
+	}
+	
 	
 	@PostConstruct
 	@Scheduled(cron = "* * 1 * * *") // schedule to run this application on every 01:00 hrs of the day
@@ -51,14 +57,14 @@ public class CoronavirusDataService {
 		
 		Iterable<CSVRecord> records =  CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(csvBodyReader); 
 		for(CSVRecord record : records) {
-			LocationStats locationStats = new LocationStats();
-			locationStats.setState(record.get("Province/State"));
-			locationStats.setCountry(record.get("Country/Region"));
+			LocationStats locationStat = new LocationStats();
+			locationStat.setState(record.get("Province/State"));
+			locationStat.setCountry(record.get("Country/Region"));
 			
-			locationStats.setLatestTotalCases(Integer.parseInt(record.get(record.size() - 1)));
+			locationStat.setLatestTotalCases(Integer.parseInt(record.get(record.size() - 1)));
 			
-			System.out.println(locationStats);
-			newStats.add(locationStats);
+			System.out.println(locationStat);
+			newStats.add(locationStat);
 			
 		}
 		this.allStats = newStats;
