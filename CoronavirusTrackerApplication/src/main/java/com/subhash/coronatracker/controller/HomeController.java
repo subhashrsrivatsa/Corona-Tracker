@@ -29,8 +29,10 @@ public class HomeController {
 		// creating as a Local variable and using it in the Thymeleaf FrontEnd
 		List<LocationStats> allStats = coronaVirusDataService.getAllStats();
 		int totalReportedCases = allStats.stream().mapToInt(stat -> stat.getLatestTotalCases()).sum();
+		int totalnewCases = allStats.stream().mapToInt(stat -> stat.getDiffFromPreviousDay()).sum();
 		model.addAttribute("locationStats", allStats);
 		model.addAttribute("totalReportedCases", totalReportedCases);
+		model.addAttribute("totalnewCases", totalnewCases);
 		return "home";
 	}
 }
