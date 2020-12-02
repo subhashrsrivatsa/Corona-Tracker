@@ -31,7 +31,7 @@ import com.subhash.coronatracker.model.LocationStats;
 @Service
 public class CoronavirusDataService {
 
-	private static String VIRUS_DATA_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/11-30-2020.csv";
+	private static String VIRUS_DATA_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
 
 	private List<LocationStats> allStats = new ArrayList<>();		// created LocationStats model as an ArrayList
 	
@@ -52,9 +52,11 @@ public class CoronavirusDataService {
 		Iterable<CSVRecord> records =  CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(csvBodyReader); 
 		for(CSVRecord record : records) {
 			LocationStats locationStats = new LocationStats();
-			locationStats.setState(record.get("Province_State"));
-			locationStats.setCountry(record.get("Country_Region"));
-			//locationStats.setLatestTotalCases(Integer.parseInt(record.get(record.size() - 1)));
+			locationStats.setState(record.get("Province/State"));
+			locationStats.setCountry(record.get("Country/Region"));
+			
+			locationStats.setLatestTotalCases(Integer.parseInt(record.get(record.size() - 1)));
+			
 			System.out.println(locationStats);
 			newStats.add(locationStats);
 			
